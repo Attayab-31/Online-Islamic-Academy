@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { CTABand, SectionHeading } from "@/components/shared";
+import { CTABand } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { getProgram, programs } from "@/data/programs";
 

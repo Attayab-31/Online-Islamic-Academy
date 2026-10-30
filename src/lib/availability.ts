@@ -37,10 +37,10 @@ function normalizeDay(raw: string) {
 function parseTime(value: string) {
     const cleaned = value.trim().toLowerCase();
     const meridiem = cleaned.endsWith("am") || cleaned.endsWith("pm");
-    let base = cleaned.replace(/(am|pm)$/i, "").trim();
-    let [hourRaw, minuteRaw] = base.split(":");
+    const base = cleaned.replace(/(am|pm)$/i, "").trim();
+    const [hourRaw, minuteRaw] = base.split(":");
     let hour = Number(hourRaw);
-    let minute = minuteRaw ? Number(minuteRaw) : 0;
+    const minute = minuteRaw ? Number(minuteRaw) : 0;
 
     if (Number.isNaN(hour)) {
         return null;

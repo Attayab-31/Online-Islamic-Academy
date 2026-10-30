@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { CTABand, JsonLd, SectionHeading } from "@/components/shared";
+import { CTABand, JsonLd } from "@/components/shared";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { courses, getCourse } from "@/data/courses";

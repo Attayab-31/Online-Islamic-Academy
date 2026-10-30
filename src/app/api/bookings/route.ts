@@ -33,7 +33,7 @@ export async function POST(request: Request) {
       teacherName: teacher?.name ?? "Your assigned teacher",
     });
 
-    const [booking, enrollment] = await prisma.$transaction(async (tx) => {
+    const booking = await prisma.$transaction(async (tx) => {
       const createdBooking = await tx.booking.create({
         data: {
           reference,
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
         },
       });
 
-      const createdEnrollment = await tx.enrollment.create({
+      await tx.enrollment.create({
         data: {
           fullName: body.contactName,
           email: body.contactEmail,
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
         },
       });
 
-      return [createdBooking, createdEnrollment] as const;
+      return createdBooking;
     });
 
     try {

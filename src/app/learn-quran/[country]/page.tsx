@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { CTABand, SectionHeading } from "@/components/shared";
+import { CTABand } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { cookies } from "next/headers";
 import { countries, getCountry, pricingTiers } from "@/data/countries";
 import { formatCurrency } from "@/lib/utils";
 
@@ -28,7 +27,6 @@ export default async function CountryHubPage({ params }: { params: Promise<{ cou
   const country = getCountry(slug);
   if (!country) notFound();
 
-  const cookieStore = await cookies();
   const currency = country.currency;
   const standardPrice = pricingTiers[1].prices[currency as keyof typeof pricingTiers[1]["prices"]] ?? pricingTiers[1].prices.USD;
 

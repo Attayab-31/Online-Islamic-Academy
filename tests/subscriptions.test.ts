@@ -10,7 +10,7 @@ test("active enrollments stay active until their expiry date", () => {
         paymentStatus: "confirmed",
         accessStatus: "active",
         expiresAt: futureDate,
-    } as any, now);
+    }, now);
 
     assert.equal(state.isActive, true);
     assert.equal(state.status, "active");
@@ -25,7 +25,7 @@ test("expired enrollments flip to expired state automatically", () => {
         paymentStatus: "confirmed",
         accessStatus: "active",
         expiresAt: pastDate,
-    } as any, now);
+    }, now);
 
     assert.equal(state.isActive, false);
     assert.equal(state.status, "expired");
@@ -34,7 +34,7 @@ test("expired enrollments flip to expired state automatically", () => {
 
 test("approval creates a one-month active window", () => {
     const now = new Date("2026-08-08T10:00:00.000Z");
-    const approved = activateEnrollmentAccess({ paymentStatus: "pending_review" } as any, now);
+    const approved = activateEnrollmentAccess({ paymentStatus: "pending_review" }, now);
 
     assert.equal(approved.paymentStatus, "confirmed");
     assert.equal(approved.accessStatus, "active");

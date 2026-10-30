@@ -5,7 +5,6 @@ import { CTABand, JsonLd, MihrabDivider, SectionHeading } from "@/components/sha
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { faqCategories, testimonials } from "@/data/content";
-import { courses } from "@/data/courses";
 import { pricingTiers } from "@/data/countries";
 import { teachers } from "@/data/teachers";
 import { faqSchema, organizationSchema, websiteSchema } from "@/lib/schema";

@@ -29,7 +29,7 @@ test("keeps a slot available even when the same time already has bookings", () =
         },
     ];
 
-    const available = filterUnavailableSlots(slots as any, bookings as any);
+    const available = filterUnavailableSlots(slots, bookings);
     assert.equal(available.length, 1);
 });
 
@@ -55,6 +55,6 @@ test("keeps slots available when there are no bookings for that teacher", () => 
         },
     ];
 
-    const available = filterUnavailableSlots(slots as any, bookings as any);
+    const available = filterUnavailableSlots(slots, bookings);
     assert.equal(available.length, 1);
 });

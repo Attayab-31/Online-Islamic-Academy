@@ -65,21 +65,12 @@ export function toAuthUser(user: {
 
 async function ensureDefaultUsers() {
   const isProduction = process.env.NODE_ENV === "production";
-  const adminEmail =
-    process.env.ADMIN_EMAIL?.trim().toLowerCase() ||
-    (isProduction ? undefined : "admin@islamicacademy.local");
-  const adminPassword =
-    process.env.ADMIN_PASSWORD || (isProduction ? undefined : "academy2026");
-  const portalEmail =
-    process.env.PORTAL_EMAIL?.trim().toLowerCase() ||
-    (isProduction ? undefined : "portal@islamicacademy.local");
-  const portalPassword =
-    process.env.PORTAL_PASSWORD || (isProduction ? undefined : "academy2026");
-  const teacherEmail =
-    process.env.TEACHER_EMAIL?.trim().toLowerCase() ||
-    (isProduction ? undefined : "teacher@islamicacademy.local");
-  const teacherPassword =
-    process.env.TEACHER_PASSWORD || (isProduction ? undefined : "academy2026");
+  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const portalEmail = process.env.PORTAL_EMAIL?.trim().toLowerCase();
+  const portalPassword = process.env.PORTAL_PASSWORD;
+  const teacherEmail = process.env.TEACHER_EMAIL?.trim().toLowerCase();
+  const teacherPassword = process.env.TEACHER_PASSWORD;
 
   if (isProduction && (!adminEmail || !adminPassword)) {
     throw new Error("Missing admin bootstrap credentials in production. Set ADMIN_EMAIL and ADMIN_PASSWORD.");

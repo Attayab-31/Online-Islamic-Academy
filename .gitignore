@@ -25,3 +25,6 @@ npm-debug.log*
 # Production build artifacts
 build/
 dist/
+
+# TypeScript incremental build cache
+*.tsbuildinfo

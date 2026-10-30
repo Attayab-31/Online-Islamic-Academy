@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { getSessionFromRequest } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { validateBookingStatus } from "@/lib/booking-status";
 
-export async function GET(request: Request) {
-    const session = await getSessionFromRequest(request as any);
+export async function GET(request: NextRequest) {
+    const session = await getSessionFromRequest(request);
 
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -17,6 +17,10 @@ export async function GET(request: Request) {
     const teacher = session.role === "teacher"
         ? await prisma.teacher.findFirst({ where: { userId: session.id } })
         : null;
+
+    if (session.role === "teacher" && !teacher) {
+        return NextResponse.json({ error: "Teacher profile not found" }, { status: 403 });
+    }
 
     const bookings = await prisma.booking.findMany({
         where: teacher ? { teacherId: teacher.id } : {},
@@ -31,8 +35,8 @@ export async function GET(request: Request) {
     return NextResponse.json({ ok: true, bookings });
 }
 
-export async function PATCH(request: Request) {
-    const session = await getSessionFromRequest(request as any);
+export async function PATCH(request: NextRequest) {
+    const session = await getSessionFromRequest(request);
 
     if (!session) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -60,6 +64,10 @@ export async function PATCH(request: Request) {
     const teacher = session.role === "teacher"
         ? await prisma.teacher.findFirst({ where: { userId: session.id } })
         : null;
+
+    if (session.role === "teacher" && !teacher) {
+        return NextResponse.json({ error: "Teacher profile not found" }, { status: 403 });
+    }
 
     const booking = await prisma.booking.findUnique({ where: { id: bookingId } });
     if (!booking) {

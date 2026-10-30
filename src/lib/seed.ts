@@ -4,13 +4,18 @@ import { hashPassword } from "@/lib/auth";
 import { UserRole } from "@prisma/client";
 
 export async function seedAuthUsers() {
-  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase() || "admin@islamicacademy.local";
-  const adminPassword = process.env.ADMIN_PASSWORD || "academy2026";
-  const portalEmail = process.env.PORTAL_EMAIL?.trim().toLowerCase() || "portal@islamicacademy.local";
-  const portalPassword = process.env.PORTAL_PASSWORD || "academy2026";
+  const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  const portalEmail = process.env.PORTAL_EMAIL?.trim().toLowerCase();
+  const portalPassword = process.env.PORTAL_PASSWORD;
+
+  if (!adminEmail || !adminPassword) {
+    console.warn("Skipping auth user seed: set ADMIN_EMAIL and ADMIN_PASSWORD in .env");
+    return;
+  }
 
   const existingUsers = await prisma.user.findMany({
-    where: { email: { in: [adminEmail, portalEmail] } },
+    where: { email: { in: [adminEmail, ...(portalEmail ? [portalEmail] : [])] } },
     select: { email: true },
   });
   const existingEmails = new Set(existingUsers.map((user) => user.email));
@@ -27,7 +32,7 @@ export async function seedAuthUsers() {
     });
   }
 
-  if (!existingEmails.has(portalEmail)) {
+  if (portalEmail && portalPassword && !existingEmails.has(portalEmail)) {
     await prisma.user.create({
       data: {
         email: portalEmail,

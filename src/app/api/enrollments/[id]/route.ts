@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth-guards";
-import { buildConfirmedAccessWindow } from "@/lib/enrollment-access";
 import { prisma } from "@/lib/prisma";
 import { activateEnrollmentAccess } from "@/lib/subscriptions";
 

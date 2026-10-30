@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { getCurrentUser } from "@/lib/auth";
-import { requireAdmin, requireUser } from "@/lib/auth-guards";
+import { requireUser } from "@/lib/auth-guards";
 import { prisma } from "@/lib/prisma";
-import { activateEnrollmentAccess } from "@/lib/subscriptions";
 
 export async function POST(request: Request) {
   try {
